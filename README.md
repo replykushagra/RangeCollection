@@ -7,5 +7,5 @@ b) Removes a range of numbers from the existing ranges
 c) Prints the existing ranges
 
 How to run it ?
-npm install
-npm test
+1. npm install
+2. npm test
