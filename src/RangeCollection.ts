@@ -58,9 +58,19 @@ export class RangeCollection {
         continue;
       }
 
-      // If the new range lies completely within an existing range
+
+      /* 2 cases where the new range is completely outside of the current range: 
+       * a) The new range is smaller than the current range and lies completely outside of it 
+       * b) The new range is bigger than the current range and engulfs it completely
+       */      
       if (rangeStart < currentRangeStart && rangeEnd < currentRangeStart) {
         this.ranges.splice(i, 0, [rangeStart, rangeEnd]);
+        return;
+      }
+
+      if (rangeStart < currentRangeStart && rangeEnd > currentRangeEnd) {
+        this.ranges.splice(i, 1, [rangeStart, rangeEnd]);
+        this.growRangeFromIndex(i, rangeEnd);
         return;
       }
 
@@ -170,7 +180,7 @@ export class RangeCollection {
    * Prints out the list of ranges in the range collection
    */
   print() {
-    console.log(this.convertToString());
+    console.log('Range Collection: ', this.convertToString());
   }
 
   convertToString(): String {
